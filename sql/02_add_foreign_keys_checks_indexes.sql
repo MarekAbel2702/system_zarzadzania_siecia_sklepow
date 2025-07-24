@@ -25,11 +25,11 @@ ADD CONSTRAINT fk_pozycjeSprzedazy_sprzedaz
 FOREIGN KEY (id_sprzedazy) REFERENCES sprzedaz(id_sprzedazy);
 
 ALTER TABLE stanyMagazynowe 
-ADD CONSTRAINT fk_stanyMagazynowe 
+ADD CONSTRAINT fk_stanyMagazynowe_produkty 
 FOREIGN KEY (id_produktu) REFERENCES produkty(id_produktu);
 
 ALTER TABLE stanyMagazynowe
-ADD CONSTRAINT fk_stanyMagazynowe 
+ADD CONSTRAINT fk_stanyMagazynowe_sklepy 
 FOREIGN KEY (id_sklepu) REFERENCES sklepy(id_sklepu);
 
 ALTER TABLE sprzedaz 
