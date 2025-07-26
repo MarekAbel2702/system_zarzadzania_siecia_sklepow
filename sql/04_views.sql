@@ -61,3 +61,69 @@ CASE
 	ELSE 'B³¹d' 
 END
 
+
+SELECT * FROM pracownicy
+
+SELECT * FROM sklepy
+
+CREATE OR ALTER VIEW v_pracownicy_sklepy 
+AS
+SELECT 
+	p.id_pracownika,
+	p.imie,
+	p.nazwisko,
+	p.stanowisko,
+	p.status,
+	p.pensja,
+	s.miasto,
+	s.ulica
+FROM pracownicy p
+LEFT JOIN sklepy s
+ON p.id_sklepu = s.id_sklepu;
+
+
+SELECT * FROM sprzedaz;
+
+SELECT * FROM produkty;
+
+SELECT * FROM sklepy;
+
+CREATE OR ALTER VIEW v_pozycje_sprzedazy_rozszerzone 
+AS
+SELECT 
+	s.id_sprzedazy,
+	s.data,
+	s.suma,
+	p.nazwa,
+	p.kategoria,
+	ps.ilosc,
+	ps.cena,
+	sk.miasto,
+	sk.ulica
+FROM sprzedaz s
+JOIN pozycjeSprzedazy ps
+ON s.id_sprzedazy = ps.id_sprzedazy
+JOIN produkty p
+ON ps.id_produktu = p.id_produktu
+JOIN sklepy sk
+ON s.id_sklepu = sk.id_sklepu;
+
+CREATE OR ALTER VIEW v_zwroty_rozszerzone
+AS
+SELECT 
+	z.id_zwrotu,
+	z.ilosc,
+	z.powod,
+	z.data AS data_zwrotu,
+	s.data AS data_sprzedazy,
+	s.suma,
+	p.nazwa,
+	p.kategoria,
+	sk.miasto AS sklep
+FROM zwroty z
+JOIN sprzedaz s
+ON z.id_sprzedazy = s.id_sprzedazy
+JOIN produkty p 
+ON z.id_produktu = p.id_produktu
+JOIN sklepy sk
+ON s.id_sklepu = sk.id_sklepu;
